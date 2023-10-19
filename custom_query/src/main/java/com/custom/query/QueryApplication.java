@@ -35,6 +35,11 @@ public class QueryApplication {
 		users3.forEach(user -> {
 			System.out.println("values By Country :::  "+user);
 		});
+		System.out.println("######################################## values By Country using sql query ");
+		List<User> users4 = repository.getAllUserByCountryUsingSql("India");
+		users4.forEach(user -> {
+			System.out.println("sql query:::  "+user);
+		});
 
 	}
 
