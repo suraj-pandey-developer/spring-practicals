@@ -3,6 +3,7 @@ package com.custom.query.repository;
 import com.custom.query.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Query(value = "From User where country = :cname")
     List<User> getAllUserByCountry(String cname);
+
+    @Query(value = "SELECT * FROM user_master WHERE USER_COUNTRY = :cname", nativeQuery = true)
+    List<User> getAllUserByCountryUsingSql(@Param("cname") String cname);
 }
