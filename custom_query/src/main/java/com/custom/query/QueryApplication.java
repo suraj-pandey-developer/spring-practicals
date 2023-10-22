@@ -2,6 +2,7 @@ package com.custom.query;
 
 import com.custom.query.model.User;
 import com.custom.query.repository.UserRepository;
+import com.custom.query.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -40,7 +41,11 @@ public class QueryApplication {
 		users4.forEach(user -> {
 			System.out.println("sql query:::  "+user);
 		});
+		UserService userService = new UserService(repository);
 
+		System.out.println("######################################## inserting values in database using native query ");
+//		userService.insertUser(112, "Cathrine", "FEMALE", "CANADA", 28);
+		userService.insertUser(113, "ROBERT", "MALE", "USA", 42);
 	}
 
 }

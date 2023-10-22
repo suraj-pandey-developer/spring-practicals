@@ -1,10 +1,12 @@
 package com.custom.query.repository;
 
 import com.custom.query.model.User;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,4 +26,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Query(value = "SELECT * FROM user_master WHERE USER_COUNTRY = :cname", nativeQuery = true)
     List<User> getAllUserByCountryUsingSql(@Param("cname") String cname);
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO user_master (user_id, user_name, user_gender, user_country, user_age) VALUES (:id, :uname, :ugender, :ucountry, :age)", nativeQuery = true)
+    void insertDataIntoInSql(@Param("id") Integer id, @Param("uname") String name, @Param("ugender") String ugender, @Param("ucountry") String ucountry, @Param("age") Integer age);
+
 }
