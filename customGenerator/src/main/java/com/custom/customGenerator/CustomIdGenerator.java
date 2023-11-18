@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -19,17 +20,15 @@ public class CustomIdGenerator implements IdentifierGenerator {
         String suffix = "";
         try {
             Connection con = session.connection();
-            Statement stmt = con.createStatement();
-            String sql = "SELECT order_id_seq.nextval from dual";
-            ResultSet rs = stmt.executeQuery(sql);
-            if(rs.next()) {
-               int seqrav =  rs.getInt(1);
-               suffix = String.valueOf(seqrav);
-            }
+            PreparedStatement stmt = con.prepareStatement("SELECT MAX(CAST(SUBSTRING(ORDER_ID, 3) AS SIGNED)) + 1 FROM order_details");
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    int nextId = rs.getInt(1);
+                    suffix = String.valueOf(nextId);
+                }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return prefix+suffix;
-
     }
 }
