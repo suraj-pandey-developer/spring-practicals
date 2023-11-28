@@ -24,7 +24,7 @@ public class FilterService {
         entity.setGender(gender);
         entity.setCountry(country);
 
-        Pageable page = PageRequest.of(1 , 5, Sort.sort())
+//        Pageable page = PageRequest.of(1 , 5, Sort.sort());
 
         List<User> users =  repository.findAll(example);
         return users;
