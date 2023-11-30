@@ -3,3 +3,5 @@ mvn archetype:generate -DgroupId=ToolsQA -DartifactId=DemoMavenProject -Darchety
 
 
 https://toolsqa.com/maven/create-new-maven-project/
+
+mvn archetype:generate -DgroupId=ToolsQA -DartifactId=DemoMavenProject -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
