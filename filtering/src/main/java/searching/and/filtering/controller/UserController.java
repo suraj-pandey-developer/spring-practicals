@@ -12,6 +12,7 @@ import searching.and.filtering.service.FilterService;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/")
@@ -39,10 +40,12 @@ public class UserController {
     }
 
     @PatchMapping("update/user/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") String id , @RequestBody HashMap<String, String> userData) {
-        Optional<User> userOptional = userRepostory.findById(Integer.valueOf(id));
+    public ResponseEntity<?> updateUser(@PathVariable("id") UUID id , @RequestBody HashMap<String, String> userData) {
+        Optional<User> userOptional = userRepostory.findById(id);
         User user = userOptional.get();
         user.setName(userData.get("name"));
         return ResponseEntity.ok(userRepostory.save(user));
     }
+
+
 }
